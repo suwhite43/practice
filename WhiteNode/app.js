@@ -1,5 +1,7 @@
 var express = require('express');
 var path = require('path');
+var bodyParser = require('body-parser');
+
 var app = express();
 
 app.set('view engine','pug');
@@ -7,6 +9,7 @@ app.set('views',path.join(__dirname,'views'));
 
 app.use(express.static('public'));
 //app.use(express.static(path.join(__dirname,'public'));
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.get('/template',function(req,res){
   res.render('temp',{
@@ -99,6 +102,13 @@ app.get('/form',function(req,res){
 app.get('/form_receiver',function(req,res){
     var id = req.query.id;
     var pw = req.query.pw;
+
+    res.send(id+','+pw);
+});
+
+app.post('/form_receiver',function(req,res){
+    var id = req.body.id;
+    var pw = req.body.pw;
 
     res.send(id+','+pw);
 });
