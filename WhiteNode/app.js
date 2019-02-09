@@ -1,7 +1,19 @@
 var express = require('express');
+var path = require('path');
 var app = express();
 
+app.set('view engine','pug');
+app.set('views',path.join(__dirname,'views'));
+
 app.use(express.static('public'));
+//app.use(express.static(path.join(__dirname,'public'));
+
+app.get('/template',function(req,res){
+  res.render('temp',{
+      time:Date(),
+      title:'pug'
+  });
+});
 
 app.get('/', function(req, res){
   res.send('hello world');
@@ -13,6 +25,8 @@ app.get('/route', function(req, res){
 
   app.get('/dynamic', function(req, res){
     var str='';
+    var time=Date();
+
     for(var i=1;i<=5;i++){
         str=str+'<li>cording</li>';
     }
@@ -29,6 +43,7 @@ app.get('/route', function(req, res){
         <ul>
             ${str}
         </ul>
+        ${time}
     </body>
     </html>
     `;  
@@ -38,5 +53,9 @@ app.get('/route', function(req, res){
 app.get('/login', function(req, res){
     res.send('<h1>login please</h1>');
   });
+
+app.get('/topic',function(req,res){
+    res.send('localhost/topic?id=10');
+});
 
 app.listen(3000);
