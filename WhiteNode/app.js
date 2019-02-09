@@ -88,4 +88,21 @@ app.get('/topic/:id',function(req,res){
     res.send(output);
 });
 
+app.get('/topic/:id/:mode',function(req,res){
+    res.send(req.params.id+','+req.params.mode);
+});
+
+app.get('/form',function(req,res){
+    res.render('form');
+});
+
+app.get('/form_receiver',function(req,res){
+    var id = req.query.id;
+    var pw = req.query.pw;
+
+    res.send(id+','+pw);
+});
+
+
+
 app.listen(3000);
