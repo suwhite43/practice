@@ -55,7 +55,20 @@ app.get('/login', function(req, res){
   });
 
 app.get('/topic',function(req,res){
-    res.send('localhost/topic?id=10');
+    var topics =[
+        'javascript is ...',
+        'nodejs is ...',
+        'express is ...'
+    ];
+
+    var output =`
+    <a href='/topic?id=0'>javaScript</a></br>
+    <a href='/topic?id=1'>NodJS</a></br>
+    <a href='/topic?id=2'>EXPRESS</a></br>
+    topics[req.query.id] = ${topics[req.query.id]}
+    `;
+
+    res.send(output);
 });
 
 app.listen(3000);
