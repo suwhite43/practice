@@ -71,4 +71,21 @@ app.get('/topic',function(req,res){
     res.send(output);
 });
 
+app.get('/topic/:id',function(req,res){
+    var topics =[
+        'javascript is ...',
+        'nodejs is ...',
+        'express is ...'
+    ];
+
+    var output =`
+    <a href='/topic/0'>javaScript</a></br>
+    <a href='/topic/1'>NodJS</a></br>
+    <a href='/topic/2'>EXPRESS</a></br>
+    topics[req.params.id] = ${topics[req.params.id]}
+    `;
+
+    res.send(output);
+});
+
 app.listen(3000);
