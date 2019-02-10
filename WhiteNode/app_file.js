@@ -13,7 +13,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.locals.pretty=true;
 
 app.get('/topic/new',function(req,res){
-    res.render('new');
+    fs.readdir('data',function(err,files){
+        if(err){
+            console.log(err);
+            res.status(500).send('Internal Server Error');
+        }
+        res.render('new',{topics:files});
+    });
+    
 });
 
 app.post('/topic',function(req,res){
