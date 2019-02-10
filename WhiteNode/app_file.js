@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
+var fs=require('fs');
 
 var app = express();
 
@@ -16,10 +17,18 @@ app.get('/topic/new',function(req,res){
 });
 
 app.post('/topic',function(req,res){
-    var id = req.body.id;
-    var pw = req.body.pw;
+    var title = req.body.title;
+    var description = req.body.description;
 
-    res.send(id+','+pw);
+    fs.writeFile('data/'+title,description,(err)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Internal Server Error');
+        }
+        res.send('Success!!!');
+    });
+
+    
 });
 
 
