@@ -39,4 +39,10 @@ app.get('/topic',function(req,res){
     
 });
 
+app.get('/topic/:id',function(req,res){
+    var id = req.params.id;
+    
+    res.send(id);
+});
+
 app.listen(3000);
