@@ -41,8 +41,14 @@ app.get('/topic',function(req,res){
 
 app.get('/topic/:id',function(req,res){
     var id = req.params.id;
+    fs.readFile('data/'+id,'utf-8',function(err,data){
+        if(err){
+            console.log(err);
+            res.status(500).send('Internal Server Error');          
+        }
+        res.send(data);
+    });
     
-    res.send(id);
 });
 
 app.listen(3000);
