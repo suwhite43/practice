@@ -28,6 +28,30 @@ app.post('/topic',function(req,res){
     });
 });
 
+app.get(['/topic','/topic/:id'],function(req,res){
+    fs.readdir('data',function(err,files){
+        if(err){
+            console.log(err);
+            res.status(500).send('Internal Server Error');
+        }
+
+        var id=req.params.id;
+        if(id){
+            fs.readFile('data/'+id,'utf-8',function(err,data){
+                if(err){
+                    console.log(err);
+                    res.status(500).send('Internal Server Error');          
+                }
+                res.render('view_file',{titil:id,topics:files,description:data});
+            });
+        }else{
+            res.render('view_file',{topics:files,title:'Learn Progamming',description:'Programming is ...'});
+        }
+    });
+
+});
+
+/*
 app.get('/topic',function(req,res){
     fs.readdir('data',function(err,files){
         if(err){
@@ -41,14 +65,23 @@ app.get('/topic',function(req,res){
 
 app.get('/topic/:id',function(req,res){
     var id = req.params.id;
-    fs.readFile('data/'+id,'utf-8',function(err,data){
+
+    fs.readdir('data',function(err,files){
         if(err){
             console.log(err);
-            res.status(500).send('Internal Server Error');          
+            res.status(500).send('Internal Server Error');
         }
-        res.send(data);
-    });
-    
+        fs.readFile('data/'+id,'utf-8',function(err,data){
+            if(err){
+                console.log(err);
+                res.status(500).send('Internal Server Error');          
+            }
+            res.render('view_file',{titil:id,topics:files,description:data});
+        });
+
+    });    
+ 
 });
+*/
 
 app.listen(3000);
