@@ -31,7 +31,7 @@ app.post('/topic',function(req,res){
         if(err){
 
         }
-        res.send('Success!!!');
+        res.redirect('/topic/'+title);
     });
 });
 
