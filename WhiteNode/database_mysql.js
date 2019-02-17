@@ -11,6 +11,7 @@ var sql='SELECT * from topic';
 
 conn.query(sql, function (error, results, fields) {
   //if (error) throw error;
+  //오류가 나올경우
   if (error){
       console.log(error);
   }
